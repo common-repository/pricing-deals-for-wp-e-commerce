@@ -1,0 +1,133 @@
+
+ADDTIONAL INSTALL INSTRUCTIONS - All documented on the RULES page.  
+
+Also, ** magic_quotes_gpc must be turned off by website host** (see at bottom of this document) 
+
+	                  	------------------------------------------------
+
+	LOOK FOR 	Help! Tell Me About Pricing Deals 	on the RULES page.
+
+			***************************************
+
+
+* * *  Show Discounts in the Cart Widget
+* * *  Theme Marketing using Pricing Deal Messages via SHORTCODE
+
+Look in folder wpsc-integration
+		Sample Cart Widget
+		Sample wpsc-theme
+
+SAMPLE folders contain all that you need to implement the code in your theme.
+
+------------------------------------------------------------------
+SHOW DISCOUNTS IN THE CART WIDGET
+*****************************************************
+
+How to Show ALL Discounts in the Cart Widget, both Realtime and add-to-cart Types
+The Cart Widget is part of your theme files. If you use the Cart Widget in your theme, a bit of manual effort is needed, to activate Pricing Deals discounts in your theme Cart Widget.
+
+  -  Changes must be made in the file "wpsc-cart_widget.php".
+  -  Find "wpsc-cart_widget.php" in your active theme.
+  -  Look at the sample file included with the Pricing Deal plugin, ... /wpsc-integration/Sample Cart Widget/wpsc-cart_widget.php for step-by-step instructions.
+  -  Apply the changes from the sample to your active theme version of the file. Details
+  -  If your Active Theme has child-theme capability, place the changed file into the child-theme folder, and you are done.
+  -  And you will never have to update this file again, unless your custom theme changes this file on update.
+  -  If your Active Theme does not have child-theme capability, replace "wpsc-cart_widget.php" where you found it in your theme area.
+  -  In this case, Each time your theme updates, you will want to check the "wpsc-cart_widget.php", and re-apply the changes as necessary.
+
+Discounts in the Cart Widget are controlled by the group of settings in the Settings Page - Cart Widget Discount Options 
+
+
+
+------------------------------------------------------------------
+THEME MARKETING USING PRICING DEAL MESSAGES via SHORTCODE
+*****************************************************
+
+Add Your Deal Messages to your Theme - Use Shortcodes!
+- Your deal messages can be introduced anywhere on your Website!  "24-Hour Store-Wide Sale, 10% off of Everything!"
+
+    Standard Shortcode => example: [pricing_deal_store_msgs]
+    Anywhere in your Theme => example: < ?php echo do_shortcode('[pricing_deal_store_msgs rule_id_list="10,15,30"]' ? >      (remove space between "<>" and "?")
+    At the Product Level, show all RealTime messages:
+        At Product display time, *any* Pricing Deal message which relates to the product can be displayed
+            "Buy 2 of this product, get one of those products free"
+            "Buy 2 of those products, get this product free"
+        Look in vt-pricing-deals-for-wp-e-commerce/wpsc-integration folders for how-to info, using the do_shortchode or do_action syntax listed
+
+
+Theme Shortcodes Usage
+These Shortcodes can be used on their own, or with a variety of parameters
+
+    Standard - [pricing_deal_store_msgs]Details
+    By Category - [pricing_deal_category_msgs]Details
+    Advanced - [pricing_deal_advanced_msgs]Details
+
+
+
+------------------------------------------------------------------
+Installing "You Save" and "Old Price" messages in your Theme (available only for Realtime Rules)
+*****************************************************
+
+Installing "You Save" and "Old Price" messages in your Theme (available only for Realtime Rules)
+Your theme contains the following four files, which all require changes, in order to display Pricing Deal "Yousave" and "Old Price" messages. Please note that the "You Save" and "Old Price" functionality for regular sale pricing will remain in effect.
+
+    "wpsc-grid_view.php"
+    "wpsc-list_view.php"
+    "wpsc-products_page"
+    "wpsc-single_product.php"
+
+Find the sample version of these same files. Look in vt-pricing-deals-for-wp-e-commerce/wpsc-integration folders for step-by-step instructions.
+Apply the changes you find in the appropriate sample folder, to your matching theme files.
+
+    "Sample wpsc-theme before 3.8.9" folder
+        Within Each of the files, "You Save" and "Old Price" generation are controlled by individual code areas:
+        If Pricing Deal "You Save" message should be turned off, simply do not make the "You Save" code changes listed.
+        If Pricing Deal "Old Price" message should be turned off, simply do not make the "Old Price" code changes listed.
+    "Sample wpsc-theme 3.8.9+" folder
+        Within Each of the files, there are options noted for "You Save" and "Old Price" generation:
+        vtprd_the_product_price_display(); => Shows both the Old Price and You Save messages
+        vtprd_the_product_price_display( array( "output_old_price" => false ) ); => Turns off the Old Price message
+        vtprd_the_product_price_display( array( "output_you_save" => false ) ); => Turns off the You Save message
+        vtprd_the_product_price_display( array( "output_old_price" => false, "output_you_save" => false ) ); => Turns off both messages
+
+Choose the folder which matches your WP E-Commerce release, and find the file name within the folder matching each file in your theme.
+
+    Apply the changes from the each sample file to your active theme version of the file.
+    If your Active Theme has child-theme capability, place the changed file into the child-theme folder, and you are done.
+    And you will never have to update this file again, unless your custom theme changes this file on update.
+    If your Active Theme does not have child-theme capability, replace "wpsc-cart_widget.php" where you found it in your theme area.
+    In this case, Each time your theme updates, you will want to check the "wpsc-cart_widget.php", and re-apply the changes as necessary.
+
+
+
+/*  ******************* ******************* ******************* *******************
+========================================================
+ON YOUR SERVER, MAGIC_QUOTES_GPC MUST BE OFF     (This feature has been DEPRECATED as of PHP 5.3.0 and REMOVED as of PHP 5.4.0.)
+========================================================
+http://php.net/manual/en/security.magicquotes.disabling.php
+
+=====================
+ASK YOUR HOST TO TURN   MAGIC_QUOTES_GPC    OFF   !!!!!!!!!!!!!!!!!!!
+=====================
+
+ An example that sets the value of these directives to Off in php.ini. For additional details, read the manual section titled How to change configuration settings.
+
+; Magic quotes
+;
+
+; Magic quotes for incoming GET/POST/Cookie data.
+magic_quotes_gpc = Off
+
+; Magic quotes for runtime-generated data, e.g. data from SQL, from exec(), etc.
+magic_quotes_runtime = Off
+
+; Use Sybase-style magic quotes (escape ' with '' instead of \').
+magic_quotes_sybase = Off
+
+================================================================================================================
+If access to the server configuration is unavailable, use of .htaccess is also an option. For example:
+================================================================================================================
+
+php_flag magic_quotes_gpc Off
+
+******************* ******************* ******************* ******************* */
